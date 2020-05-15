@@ -104,10 +104,10 @@ class SnekGaem:
         return self.snek[0] == self.food
 
     def check_collisions(self):
-        if(self.snek[0][0] <= 5 or 
-            self.snek[0][0] >= self.width - 5 or
-            self.snek[0][1] <= 5 or
-            self.snek[0][1] >= self.height - 5 or
+        if(self.snek[0][0] <= 5 or # top 
+            self.snek[0][0] >= self.width - 5  or # bottom
+            self.snek[0][1] <= 5 or # left 
+            self.snek[0][1] >= self.height - 5 or # right
             self.snek[0] in self.snek[1:-1]):
             self.done = True
 
@@ -116,6 +116,25 @@ class SnekGaem:
 
     def end_game(self):
         pygame.quit()
+    
+    # # helper functions for nn
+
+    def detect_obstacles(self,scan_depth = 1):
+        left = right = forward = False
+        if( self.snek[0][0] - 1 <= 5 ):
+            forward = True 
+        if( self.snek[0][1] - 1 <= 5):
+            left = True 
+        if( self.snek[0][2] + 1 <= self.height - 5 ):
+            right = True 
+        
+        return forward, left , right
+    
+    def angle_to_food(self,scan_depth = 20):
+        return 0
+        
+
+
 
 if __name__ == "__main__":
     game = SnekGaem()
